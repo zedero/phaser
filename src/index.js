@@ -67,7 +67,6 @@ function create() {
   // a bit of whitespace, so I'm using setSize & setOffset to control the size of the player's body.
   player = this.physics.add
     .sprite(spawnPoint.x, spawnPoint.y, "atlas", "misa-front")
-    .setSize(30, 40)
     .setSize(26, 20)
     .setOffset(3, 44);
 
