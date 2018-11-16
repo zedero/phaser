@@ -68,7 +68,8 @@ function create() {
   player = this.physics.add
     .sprite(spawnPoint.x, spawnPoint.y, "atlas", "misa-front")
     .setSize(30, 40)
-    .setOffset(0, 24);
+    .setSize(26, 20)
+    .setOffset(3, 44);
 
   // Watch the player and worldLayer for collisions, for the duration of the scene:
   this.physics.add.collider(player, worldLayer);
@@ -136,7 +137,12 @@ function create() {
   });
 }
 
+function doorCollisionHandler(player, door) {
+  console.log('collision', player, door);
+}
+
 function update(time, delta) {
+
   const speed = 175;
   const prevVelocity = player.body.velocity.clone();
 
