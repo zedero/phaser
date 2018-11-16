@@ -62,6 +62,12 @@ function create() {
   // Object layers in Tiled let you embed extra info into a map - like a spawn point or custom
   // collision shapes. In the tmx file, there's an object layer with a point named "Spawn Point"
   const spawnPoint = map.findObject("Objects", obj => obj.name === "Spawn Point");
+  const doorsObjects = map.filterObjects("Objects", obj => obj.type === "Door");
+
+  console.log(doorsObjects)
+  // console.log(map)
+  // console.log(doorsObjects.length)
+
 
   // Create a sprite with physics enabled via the physics system. The image used for the sprite has
   // a bit of whitespace, so I'm using setSize & setOffset to control the size of the player's body.
@@ -70,8 +76,27 @@ function create() {
     .setSize(26, 20)
     .setOffset(3, 44);
 
+  const doors = this.physics.add.group({
+    key: 'door',
+    repeat: doorsObjects.length - 1,
+    setXY: { x: 0, y: 0 }
+  });
+
+  doors.children.iterate(function (child , i) {
+    console.log(child, doorsObjects)
+    child.name = doorsObjects[i].name;
+    child.x = doorsObjects[i].x;
+    child.y = doorsObjects[i].y + 10;
+    // child.alpha = 0;
+
+
+  });
+
   // Watch the player and worldLayer for collisions, for the duration of the scene:
   this.physics.add.collider(player, worldLayer);
+  // this.physics.add.overlap(player, doors, (_player, _door) => {
+  //   console.log('collide', _door)
+  // }, null, this);
 
   // Create the player's walking animations from the texture atlas. These are stored in the global
   // animation manager so any sprite can access them.
